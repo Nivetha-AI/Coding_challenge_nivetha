@@ -7,11 +7,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import com.exception.PatientNumberNotFoundException;
 import com.model.Appointment;
-
 import com.mysql.jdbc.PreparedStatement;
-
 import com.util.DBUtilProperty;
 
 public class HospitalServiceImpl implements IHospitalServiceImpl{
@@ -42,7 +40,7 @@ public class HospitalServiceImpl implements IHospitalServiceImpl{
 		throw new NullPointerException("Invalid ID given");
 	}
 
-	public List<Appointment> getAppointmentsForPatient(int patientId) throws SQLException {
+	public List<Appointment> getAppointmentsForPatient(int patientId) throws SQLException,PatientNumberNotFoundException {
          Connection conn = DBUtilProperty.getDBconn();
          List<Appointment> list = new ArrayList<>();
 		String sql = "select * from appointment where patient_id=?";
@@ -62,7 +60,10 @@ public class HospitalServiceImpl implements IHospitalServiceImpl{
 				Appointment ap = new Appointment(appointmentId,patientId1,doctorId,LocalDate.parse(appointmentDate),description);
 				list.add(ap);
 	    }
-	
+		if (list.isEmpty()) {
+			throw new PatientNumberNotFoundException("patient Id not found");
+
+		}
 	
 		DBUtilProperty.dbclose();
 	return list;

@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
+import com.exception.PatientNumberNotFoundException;
 import com.model.Appointment;
 
 import com.service.HospitalService;
@@ -61,12 +62,10 @@ public class MainModule {
 				for (Appointment a: list) {
 			    	System.out.println(a);
 				}
-			} catch (SQLException e) {// if query goes wrong
+			} catch (SQLException | PatientNumberNotFoundException e) {// if query goes wrong
 				System.out.println(e.getMessage());
 			}
-			catch(NullPointerException e) {// if id is invalid
-				System.out.println(e.getMessage());
-			}
+			
 			break;
 		case 3:
 			System.out.println("Appointment Deatils");

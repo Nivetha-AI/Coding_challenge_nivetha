@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.dao.HospitalServiceImpl;
+import com.exception.PatientNumberNotFoundException;
 import com.model.Appointment;
 
 
@@ -16,7 +17,7 @@ public Appointment getAppointmentById(int appointmentId) throws SQLException {
 		return hospitalServiceimpl.getAppointmentById(appointmentId);
 	}
 
-public List<Appointment> getAppointmentsForPatient(int patientId) throws SQLException{
+public List<Appointment> getAppointmentsForPatient(int patientId) throws SQLException,PatientNumberNotFoundException{
 	
 	List<Appointment> list =hospitalServiceimpl. getAppointmentsForPatient( patientId);
 	return list;
