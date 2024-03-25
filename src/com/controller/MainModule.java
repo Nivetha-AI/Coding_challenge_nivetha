@@ -140,7 +140,7 @@ public class MainModule {
 			try {
 				hospitalService.cancelAppointment(appointmentId1);
                 System.out.println("Appointment cancelled");
-			} catch (SQLException e ) {
+			} catch (SQLException   e ) {
 				System.out.println(e.getMessage());
 			}
 			break;

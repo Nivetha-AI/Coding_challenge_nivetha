@@ -27,13 +27,13 @@ public class HospitalServiceImpl implements IHospitalServiceImpl{
 		ResultSet rst =pstmt.executeQuery();
 		
 		if(rst.next()) {
-			    
+			    int appointmentId1=rst.getInt("appointment_id");
 			    int patientId=rst.getInt("patient_Id");
 			    int doctorId= rst.getInt("doctor_Id");
 				String appointmentDate = rst.getString("apoointment_date");
 				String description = rst .getString("description");
 				// save it in object 
-				Appointment ap = new Appointment(patientId,doctorId,LocalDate.parse(appointmentDate),description);
+				Appointment ap = new Appointment(appointmentId1,patientId,doctorId,LocalDate.parse(appointmentDate),description);
 				return ap;
 				}
 		DBUtilProperty.dbclose();
@@ -130,8 +130,8 @@ public class HospitalServiceImpl implements IHospitalServiceImpl{
 				pstmt.setDate(3, java.sql.Date.valueOf(appointmentDate1));
 				pstmt.setString(4, description1);
 				pstmt.setInt(5,aid);
-				
-			
+			    pstmt.executeUpdate();
+					
 				
 				
 				DBUtilProperty.dbclose();
@@ -140,14 +140,16 @@ public class HospitalServiceImpl implements IHospitalServiceImpl{
 	}
 
 	@Override
-	public void cancelAppointment(int appointmentId1) throws SQLException {
+	public void cancelAppointment(int appointmentId1) throws SQLException{
 		Connection conn = DBUtilProperty.getDBconn();
 		String sql ="delete from appointment where appointment_id =?";
 		// prepare the statement
 		
 			PreparedStatement pstmt = (PreparedStatement) conn.prepareStatement(sql);
-			// attach the values to ?
 			pstmt.setInt(1,appointmentId1);
+			
+			pstmt.executeUpdate();
+			
 			DBUtilProperty.dbclose();
 			
 	}

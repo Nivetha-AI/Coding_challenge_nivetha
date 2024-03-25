@@ -12,7 +12,7 @@ public class DBUtilProperty {
 
 		String usernameDb = "root";
 		String passwordDb = "";
-		String urlDb = "jdbc:mysql://localhost:3306/Hospital";
+		String urlDb = "jdbc:mysql://localhost:3306/hospital";
 		String driverName = "com.mysql.jdbc.Driver";
 
 		try {
